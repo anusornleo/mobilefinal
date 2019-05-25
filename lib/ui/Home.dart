@@ -51,7 +51,7 @@ class HomeState extends State {
                 child: Text("My Friends"),
                 onPressed: (
                   
-                ) {Navigator.pushReplacement(
+                ) {Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) => Friend()));},
