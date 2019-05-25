@@ -84,7 +84,7 @@ class SettingState extends State {
                   decoration: InputDecoration(
                     labelText: "old : " + userdata.username.toString(),
                     hintText: "Plaease input you email",
-                    prefixIcon: Icon(Icons.person),
+               
                   ),
                 ),
                 TextFormField(
@@ -92,7 +92,7 @@ class SettingState extends State {
                   decoration: InputDecoration(
                     labelText: "old : " + userdata.name,
                     hintText: "Plaease input you email",
-                    prefixIcon: Icon(Icons.vpn_key),
+                    
                   ),
                 ),
                 TextFormField(
@@ -100,7 +100,7 @@ class SettingState extends State {
                   decoration: InputDecoration(
                     labelText: "old : " + userdata.age,
                     hintText: "Plaease input you email",
-                    prefixIcon: Icon(Icons.vpn_key),
+                    
                   ),
                 ),
                 TextFormField(
@@ -108,7 +108,7 @@ class SettingState extends State {
                   decoration: InputDecoration(
                     labelText: "old : " + userdata.password.toString(),
                     hintText: "Plaease input you email",
-                    prefixIcon: Icon(Icons.vpn_key),
+                    
                   ),
                 ),
                 TextFormField(
@@ -117,7 +117,7 @@ class SettingState extends State {
                   decoration: InputDecoration(
                     labelText: "old : " + userdata.password.toString(),
                     hintText: "Plaease input you email",
-                    prefixIcon: Icon(Icons.vpn_key),
+                    
                   ),
                 ),
     
