@@ -57,12 +57,12 @@ class SignInFormState extends State<SignInForm> {
                   decoration: InputDecoration(
                     enabledBorder: UnderlineInputBorder(
                         borderSide: BorderSide(color: Colors.blue)),
-                    labelText: "Email",
+                    labelText: "UserId",
                     labelStyle: TextStyle(color: Colors.blue),
-                    hintText: "Plaease input you email",
+                    hintText: "Plaease input you UserId",
                     hintStyle: TextStyle(color: Colors.blue[200]),
                     prefixIcon: Icon(
-                      Icons.mail,
+                      Icons.person,
                       color: Colors.blue,
                     ),
                   ),
@@ -76,14 +76,14 @@ class SignInFormState extends State<SignInForm> {
                         borderSide: BorderSide(color: Colors.blue)),
                     labelText: "Name",
                     labelStyle: TextStyle(color: Colors.blue),
-                    hintText: "Plaease input you email",
+                    hintText: "Plaease input you Name",
                     hintStyle: TextStyle(color: Colors.blue[200]),
                     prefixIcon: Icon(
-                      Icons.person,
+                      Icons.account_circle,
                       color: Colors.blue,
                     ),
                   ),
-                  keyboardType: TextInputType.emailAddress,
+                  keyboardType: TextInputType.text,
                 ),
                 TextFormField(
                   style: TextStyle(color: Colors.blue),
@@ -93,11 +93,11 @@ class SignInFormState extends State<SignInForm> {
                         borderSide: BorderSide(color: Colors.blue)),
                     labelText: "Age",
                     labelStyle: TextStyle(color: Colors.blue),
-                    hintText: "Plaease input you Password",
+                    hintText: "Plaease input you Age",
                     hintStyle: TextStyle(color: Colors.blue[200]),
                     prefixIcon: Icon(Icons.calendar_today, color: Colors.blue),
                   ),
-                  keyboardType: TextInputType.text,
+                  keyboardType: TextInputType.number,
                 ),
                 TextFormField(
                   style: TextStyle(color: Colors.blue),
@@ -125,17 +125,37 @@ class SignInFormState extends State<SignInForm> {
                       onPressed: () async {
                         if (_userID.text.isEmpty ||
                             _password.text.isEmpty ||
-                            _name.text.isEmpty) {
+                            _name.text.isEmpty || _age.text.isEmpty) {
                           Scaffold.of(context).showSnackBar(SnackBar(
                             content: Text('Please Input All Field'),
                             duration: Duration(seconds: 3),
                           ));
-                        } else {
+                        } 
+                             else if (_password.text.contains(" ")) {
+                          Scaffold.of(context).showSnackBar(SnackBar(
+                            content: Text('Name and surname separated by spacesbar'),
+                            duration: Duration(seconds: 3),
+                          ));
+                        }
+                        else if (_userID.text.length < 6 || _userID.text.length > 12) {
+                          Scaffold.of(context).showSnackBar(SnackBar(
+                            content: Text('UserId must length in 6-2 letter'),
+                            duration: Duration(seconds: 3),
+                          ));
+                        }
+                        else if (_password.text.length < 6) {
+                          Scaffold.of(context).showSnackBar(SnackBar(
+                            content: Text('Password length must more 6 letter'),
+                            duration: Duration(seconds: 3),
+                          ));
+                        }
+                   
+                        else {
                           db
                               .saveNewTask(Todo.getValue(
                                   _userID.text,
                                   _password.text,
-                                  isChecked.toString(),
+                                  _name.text,
                                   _age.text))
                               .then((_) {
                             items.clear();

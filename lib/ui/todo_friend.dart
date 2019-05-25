@@ -33,7 +33,7 @@ class TodoFriendState extends State {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Album")),
+      appBar: AppBar(title: Text("Todo")),
       body: data == null
           ? Center(
               child: CircularProgressIndicator(),
@@ -41,30 +41,28 @@ class TodoFriendState extends State {
           : ListView.builder(
               itemCount: data.length,
               itemBuilder: (BuildContext context, i) {
-                return new Card(
-                    child: Container(
-                      padding: EdgeInsets.all(8.0),
-                      child: Column(
-                  children: <Widget>[
-                          ListTile(
-                            title: Text(data[i]["id"].toString()),
-                          ),
-                          ListTile(
-                            title: Text(data[i]["title"]),
-                          ),
-                          ListTile(
-                            title: Text(data[i]["completed"].toString()),
-                          )
-                        //  Text(data[i]["id"].toString()+':'+data[i]["name"]),
-                        //  Text(data[i]["email"]),
-                        //  Text(data[i]["phone"]),
-                        //  Text(data[i]["website"]),
-                       
-                
-                  ],
-                )
-                    ),
-                );
+                return new Container(
+                      
+                      color: Colors.white,
+                      padding: EdgeInsets.all(20.0),
+                        child: Column(
+                          children: <Widget>[
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(data[i]["id"].toString()),
+                            ),
+                            
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(data[i]["title"]),
+                            ),
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: data[i]["completed"] == true ? Text("Completed" ,style: TextStyle(color: Colors.green),) : Text(""),
+                            ),
+                          ],
+                        ),
+                    );
               },
             ),
     );

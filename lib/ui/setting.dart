@@ -1,6 +1,9 @@
 import 'package:mobilefinal2/model/modelUser.dart';
 import 'package:mobilefinal2/ui/wait.dart';
 import 'package:flutter/material.dart';
+import 'dart:async';
+import 'dart:io';
+import 'package:path_provider/path_provider.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:intl/intl.dart';
 
@@ -15,6 +18,23 @@ class Setting extends StatefulWidget {
 }
 
 class SettingState extends State {
+
+    Future<String> get _localPath async {
+    final directory = await getApplicationDocumentsDirectory();
+    return directory.path;
+  }
+
+  Future<File> get _localPathFile async {
+    final path = await _localPath;
+    return File('$path/data.txt');
+  }
+
+  Future<File> writeContent(String data) async {
+    final file = await _localPathFile;
+    file.writeAsString('${data}');
+  }
+
+  
   TodoDatabase db = TodoDatabase();
   final Todo userdata;
   SettingState(this.userdata);
@@ -38,7 +58,7 @@ class SettingState extends State {
   TextEditingController _name = new TextEditingController();
   TextEditingController _age = new TextEditingController();
   TextEditingController _password = new TextEditingController();
-  TextEditingController _dob = new TextEditingController();
+  TextEditingController _quote = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +90,7 @@ class SettingState extends State {
                 TextFormField(
                   controller: _name,
                   decoration: InputDecoration(
-                    labelText: "old : " + userdata.password.toString(),
+                    labelText: "old : " + userdata.name,
                     hintText: "Plaease input you email",
                     prefixIcon: Icon(Icons.vpn_key),
                   ),
@@ -78,7 +98,7 @@ class SettingState extends State {
                 TextFormField(
                   controller: _age,
                   decoration: InputDecoration(
-                    labelText: "old : " + userdata.password.toString(),
+                    labelText: "old : " + userdata.age,
                     hintText: "Plaease input you email",
                     prefixIcon: Icon(Icons.vpn_key),
                   ),
@@ -91,17 +111,20 @@ class SettingState extends State {
                     prefixIcon: Icon(Icons.vpn_key),
                   ),
                 ),
+                TextFormField(
+                  maxLines: null,
+                  controller: _quote,
+                  decoration: InputDecoration(
+                    labelText: "old : " + userdata.password.toString(),
+                    hintText: "Plaease input you email",
+                    prefixIcon: Icon(Icons.vpn_key),
+                  ),
+                ),
     
                 Builder(
                   builder: (context) => RaisedButton(
                       child: Text('OK'),
                       onPressed: () async {
-                        print(_username.text);
-                        print(_password.text);
-                        print(isChecked);
-                        print(_year);
-                        print(_gen);
-                        print(_dob.text);
                         db.updateNote(Todo.fromMap({
                           'id': userdata.id, // old id
                           'username': _username.text, // old title
@@ -109,6 +132,7 @@ class SettingState extends State {
                           'age': _age.text,
                           'name': _name.text,
                         }));
+                        writeContent(_quote.text);
                         Navigator.pushReplacement(context,
                             MaterialPageRoute(builder: (context) => Wait()));
                       }),

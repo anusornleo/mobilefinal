@@ -1,4 +1,5 @@
 import 'package:mobilefinal2/model/modelUser.dart';
+import 'package:mobilefinal2/ui/Home.dart';
 import 'package:mobilefinal2/ui/mainHome.dart';
 import 'package:mobilefinal2/ui/signIn.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -21,6 +22,7 @@ class LoginFormState extends State<LoginForm> {
   final _formKey = GlobalKey<ScaffoldState>();
   final prefs = SharedPreferences.getInstance();
   TodoDatabase db = TodoDatabase();
+  String data;
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +76,7 @@ class LoginFormState extends State<LoginForm> {
                           Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => MainHome(i, items)));
+                                  builder: (context) => Home(i, items,data)));
                         }
                       }
                       Scaffold.of(context).showSnackBar(SnackBar(
@@ -94,7 +96,7 @@ class LoginFormState extends State<LoginForm> {
                     style: TextStyle(fontSize: 12, color: Colors.blue),
                   ),
                   onPressed: () {
-                    Navigator.push(
+                    Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
                             builder: (context) => SignInForm(items)));
